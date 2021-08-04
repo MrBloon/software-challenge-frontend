@@ -2,6 +2,7 @@ from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 import crud, models, schemas
 from database import SessionLocal, engine
@@ -9,6 +10,14 @@ from database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():
@@ -35,9 +44,9 @@ def read_geneset(geneset_id: int, db: Session = Depends(get_db)):
     return crud.get_geneset(db, geneset_id)
 
 @app.put("/genesets/{geneset_id}")
-def update_genesets(geneset_id: int, db: Session = Depends(get_db)):
+def update_genesets(geneset_id: int, geneset: schemas.GenesetUpdate, db: Session = Depends(get_db)):
 
-    return crud.get_geneset(db, geneset_id)
+    return crud.update_geneset(db, geneset_id, geneset)
 
 @app.post("/genesets")
 def create_geneset(geneset: schemas.GenesetCreate, db: Session = Depends(get_db)):

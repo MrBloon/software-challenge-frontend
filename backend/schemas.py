@@ -43,6 +43,13 @@ class GenesetCreate(GenesetBase):
 
 
 
+class GenesetUpdate(GenesetBase):
+
+    title: str
+    genes_to_destroy: List[GeneBase] = []
+
+
+
 class Geneset(GenesetBase):
     id: int
     genes: List[Gene] = []

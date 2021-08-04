@@ -2,9 +2,7 @@ from sqlalchemy.orm import Session
 
 
 from models import Gene, Geneset
-from schemas import GenesetCreate, GeneCreate
-
-
+from schemas import GenesetCreate, GeneCreate, GenesetUpdate
 
 
 def get_geneset(db: Session, geneset_id: int):
@@ -12,10 +10,18 @@ def get_geneset(db: Session, geneset_id: int):
     return db.query(Geneset).filter(Geneset.id == geneset_id).first()
 
 
-def update_geneset(db: Session, geneset_id: int):
 
-    return db.query(Geneset).filter(Geneset.id == geneset_id).first()
+def update_geneset(db: Session, geneset_id: int, geneset: GenesetUpdate):
+    db_geneset =  db.query(Geneset).filter(Geneset.id == geneset_id).first()
+    db_geneset.title = geneset.title
 
+    for gene in geneset.genes_to_destroy:
+        db_gene = db.query(Gene).filter(Gene.geneset_id == geneset_id).filter(Gene.name == gene.name).first()
+        db.delete(db_gene)
+
+    db.commit()
+    db.refresh(db_geneset)
+    return db_geneset
 
 
 def get_geneset_by_title(db: Session, pattern: str):
@@ -37,6 +43,7 @@ def create_geneset_with_genes(db: Session, geneset: GenesetCreate):
     db.commit()
     db.refresh(db_geneset)
     return db_geneset
+
 
 def create_geneset(db: Session, geneset: GenesetCreate):
     db_geneset = Geneset(title=geneset.title)
