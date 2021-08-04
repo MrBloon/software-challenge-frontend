@@ -11,6 +11,7 @@ def get_geneset(db: Session, geneset_id: int):
 
     return db.query(Geneset).filter(Geneset.id == geneset_id).first()
 
+
 def update_geneset(db: Session, geneset_id: int):
 
     return db.query(Geneset).filter(Geneset.id == geneset_id).first()
