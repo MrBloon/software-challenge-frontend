@@ -3,16 +3,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchGenesets, fetchGeneset } from '../actions/index.js'
+import { fetchGenesets } from '../actions/index.js'
 import Aside from '../components/aside';
 
 class GenesetsIndex extends Component {
-  componentWillMount(id) {
-    this.props.fetchGenesets(id);
-  }
-
-  handleClick = (id) => {
-    this.props.fetchGeneset(id);
+  componentWillMount() {
+    this.props.fetchGenesets();
   }
 
   displayDuplicate = (geneset) => {
@@ -42,7 +38,7 @@ class GenesetsIndex extends Component {
             })}
           </ul>
         </div>
-        <Link to={`/genesets/update/${geneset.id}`} onClick={() => this.handleClick(geneset.id)} className="update">Update</Link>
+        <Link to={`/genesets/update/${geneset.id}`} className="update">Update</Link>
       </div>
     );
   }
@@ -78,8 +74,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { fetchGenesets: fetchGenesets,
-      fetchGeneset: fetchGeneset
+    { fetchGenesets: fetchGenesets
     },dispatch);
 }
 

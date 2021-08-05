@@ -47,9 +47,8 @@ export function addGeneset(geneset, callback) {
 export function updateGeneset(id, geneset, callback) {
   const body = {
     "title": geneset.title,
-    "genes": geneset.genes
+    "genes_to_destroy": geneset.genes
   }
-
   const request = fetch(`${BASE_URL}/${id}`, {
     method: 'PATCH',
     headers: {

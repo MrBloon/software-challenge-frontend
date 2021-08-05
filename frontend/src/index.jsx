@@ -13,7 +13,6 @@ import '../assets/stylesheets/application.scss';
 import GenesetsIndex from './containers/genesets_index';
 import GenesetsNew from './containers/genesets_new';
 import GenesetsUpdate from './containers/genesets_update';
-import GenesetsShow from './containers/genesets_show';
 
 // State and reducers
 import genesetsReducer from './reducers/genesets_reducer';
@@ -42,7 +41,6 @@ ReactDOM.render(
         <Route path="/" exact component={GenesetsIndex}/>
         <Route path="/genesets/new" exact component={GenesetsNew}/>
         <Route path="/genesets/update/:id" component={GenesetsUpdate}/>
-        <Route path="/genesets/:id" component={GenesetsShow}/>
       </Switch>
     </Router>
   </Provider>,

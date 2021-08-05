@@ -6,7 +6,9 @@ export default function (state = [], action) {
     case FETCH_GENESET:
       return action.payload;
     case UPDATE_GENESET:
-      return action.payload;
+      const copiedState = state.slice(0);
+      copiedState.push(action.payload);
+      return copiedState
     default:
       return state;
   }

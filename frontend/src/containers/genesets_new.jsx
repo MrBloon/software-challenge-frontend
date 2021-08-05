@@ -22,15 +22,33 @@ class GenesetsNew extends Component {
         <Aside key="aside">
           <Link to="/">Back to list</Link>
         </Aside>
-        <div key="add" className="form-container" style={{ backgroundImage: "url('/assets/images/genesetnew.jpeg')"}}>
+        <div key="add"
+             className="form-container"
+             style={{ backgroundImage: "url('/assets/images/genesetnew.jpeg')"}}
+        >
           <div className="overlay"></div>
           <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-            <h1 style={{ textAlign: 'center', justifyContent: "center" }}>Your new geneset</h1>
-            <label htmlFor="InputTitle">Title</label>
-            <Field name="title" type="text" component={renderField} validate={this.presence} />
-            <FieldArray name="genes" type="text" component={renderGenes} className="form-control" />
+            <h1 style={{ textAlign: 'center', justifyContent: "center" }}>
+              Your new geneset
+            </h1>
+            <label htmlFor="InputTitle">
+              Title
+            </label>
+            <Field name="title"
+                   type="text"
+                   component={renderField}
+                   validate={this.presence}
+            />
+            <FieldArray name="genes"
+                        type="text"
+                        component={renderGenes}
+                        className="form-control"
+            />
             <div style={{  textAlign: 'center', justifyContent: "center" }}>
-              <button style={{ marginTop: 30 }} type="submit" disabled={!this.props.valid || this.props.pristine || this.props.submitting}>
+              <button style={{ marginTop: 30 }}
+                      type="submit"
+                      disabled={!this.props.valid || this.props.pristine || this.props.submitting}
+              >
                 Create geneset
               </button>
             </div>
