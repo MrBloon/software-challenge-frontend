@@ -9,11 +9,6 @@ import Aside from '../components/aside';
 import validate from '../validate'
 
 class GenesetsUpdate extends Component {
-
-  componentWillMount() {
-    this.props.fetchGeneset(this.props.match.params.id);
-  }
-
   presence = value => value ? undefined : 'required!'
 
   onSubmit = (values) => {
@@ -21,6 +16,10 @@ class GenesetsUpdate extends Component {
     this.props.updateGeneset(id, values, () => {
       this.props.history.push('/'); // Navigate after submit
     });
+  }
+
+  componentWillMount() {
+    this.props.fetchGeneset(this.props.match.params.id);
   }
 
   render() {
@@ -79,7 +78,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     { updateGeneset: updateGeneset,
       fetchGeneset: fetchGeneset
-    },dispatch);
+    }, dispatch);
 }
 
 export default reduxForm({ form: 'updateGenesetForm' })(
